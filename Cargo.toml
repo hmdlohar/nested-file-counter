@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 description = "hnfc — ncdu-like file count explorer (pure Docker build)"
 license = "MIT"
-repository = ""
+repository = "https://github.com/hmdlohar/nested-file-counter"
 keywords = ["tui", "ncdu", "file-count", "disk-usage"]
 categories = ["command-line-utilities"]
 

@@ -8,10 +8,8 @@
 set -eu
 
 REPO="${GH_REPO:-${HNFC_REPO:-}}" # e.g. "myorg/hnfc"
-# Default repo — CHANGE THIS to your GitHub repo before publishing:
 if [ -z "$REPO" ]; then
-  REPO="YOUR_GH_USER/nested-file-counter"
-  echo "warn: using placeholder repo $REPO — set GH_REPO=owner/repo or edit install.sh" >&2
+  REPO="hmdlohar/nested-file-counter"
 fi
 
 VERSION="${HNFC_VERSION:-${1:-}}"

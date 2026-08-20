@@ -8,10 +8,8 @@
 
 ### curl | sh (recommended)
 
-Replace `OWNER/REPO` with your GitHub repo.
-
 ```sh
-curl -fsSL https://raw.githubusercontent.com/OWNER/REPO/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/hmdlohar/nested-file-counter/main/install.sh | sh
 # custom version / repo / dir
 HNFC_VERSION=v0.1.0 sh install.sh
 GH_REPO=OWNER/REPO sh install.sh
@@ -28,7 +26,7 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ```sh
 # Linux amd64 example
-curl -fsSLO https://github.com/OWNER/REPO/releases/download/v0.1.0/hnfc-linux-amd64.tar.gz
+curl -fsSLO https://github.com/hmdlohar/nested-file-counter/releases/download/v0.1.0/hnfc-linux-amd64.tar.gz
 tar -xzf hnfc-linux-amd64.tar.gz
 install -m 755 hnfc ~/.local/bin/hnfc
 hnfc --help
@@ -75,18 +73,28 @@ hnfc --depth 2 .            # limit recursion depth
 ```sh
 hnfc --uninstall
 # or
-curl -fsSL https://raw.githubusercontent.com/OWNER/REPO/main/install.sh | sh -s -- --uninstall
+curl -fsSL https://raw.githubusercontent.com/hmdlohar/nested-file-counter/main/install.sh | sh -s -- --uninstall
 # or
 rm ~/.local/bin/hnfc
 ```
 
 ## Releasing
 
-Push a tag; the workflow builds **linux (amd64/arm64 musl), macOS (amd64/arm64), Windows (amd64)** and attaches `hnfc-*` tarballs/zips to the GitHub Release.
+Use the helper script — it bumps `Cargo.toml`/`Cargo.lock`, commits, tags, and pushes (which triggers the release workflow):
+
+```sh
+./scripts/release.sh 0.2.0          # 0.2.0 or v0.2.0
+./scripts/release.sh 0.2.0 --dry-run
+./scripts/release.sh 0.2.0 --no-push  # commit+tag locally, push later
+```
+
+Or manually:
 
 ```sh
 git tag v0.1.0 && git push origin v0.1.0
 ```
+
+The workflow builds **linux (amd64/arm64 musl), macOS (amd64/arm64), Windows (amd64)** and attaches `hnfc-*` tarballs/zips to the GitHub Release.
 
 Assets use these names (consumed by `install.sh`):
 
