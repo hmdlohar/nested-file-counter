@@ -129,7 +129,7 @@ fn do_uninstall() -> Result<()> {
         candidates.push(PathBuf::from(std::env::var("HNFC_INSTALL_DIR").unwrap()).join("hnfc.exe"));
     }
     if let Ok(home) = std::env::var("HOME") {
-        candidates.push(PathBuf::from(home).join(".local/bin/hnfc"));
+        candidates.push(PathBuf::from(home.clone()).join(".local/bin/hnfc"));
         #[cfg(windows)]
         candidates.push(PathBuf::from(home).join(".local/bin/hnfc.exe"));
     }

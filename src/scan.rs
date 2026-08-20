@@ -1,5 +1,6 @@
 use std::collections::HashSet;
 use std::fs;
+#[cfg(unix)]
 use std::os::unix::fs::MetadataExt;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
@@ -174,11 +175,14 @@ where
         }
     }
 
-    let root_dev = if opts.one_filesystem {
+    #[cfg(unix)]
+    let root_dev: Option<u64> = if opts.one_filesystem {
         fs::metadata(&root).ok().map(|m| m.dev())
     } else {
         None
     };
+    #[cfg(not(unix))]
+    let root_dev: Option<u64> = None;
 
     let root_name = root
         .file_name()
@@ -319,6 +323,7 @@ where
                 stack[top].children.push(node);
                 continue;
             }
+            #[cfg(unix)]
             if let Some(rd) = root_dev {
                 if let Ok(meta) = fs::metadata(&path) {
                     if meta.dev() != rd {
@@ -338,6 +343,8 @@ where
                     }
                 }
             }
+            #[cfg(not(unix))]
+            let _ = &root_dev;
             let canon = path.canonicalize().unwrap_or_else(|_| path.clone());
             if !visited.insert(canon) {
                 let node = Node {
