@@ -1,6 +1,6 @@
 [package]
 name = "hnfc"
-version = "0.2.1"
+version = "0.2.2"
 edition = "2021"
 description = "hnfc — ncdu-like file count explorer (pure Docker build)"
 license = "MIT"
